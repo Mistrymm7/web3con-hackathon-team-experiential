@@ -30,7 +30,6 @@ export default function Home() {
         const account = accounts[0];
         console.log("Found an authorized account:", account);
         setCurrentAccount(account);
-        getAllHighfives(); // retrive all the highfives from the chain
       } else {
         console.log("No authorized account found");
       }
@@ -63,23 +62,6 @@ export default function Home() {
 
   useEffect(() => {
     checkIfWalletIsConnected();
-
-    // check if there is a wallet extension active (MetaMask)
-    // if (typeof window.ethereum !== 'undefined' || (typeof window.web3 !== 'undefined')) {
-    //   // const provider = new ethers.providers.Web3Provider(window.ethereum);
-    //   const provider = window.ethereum;
-    //   setProvider(provider);
-    //   console.log("Provider found: ", provider);
-
-    //   // update state with the active wallet address
-    //   provider.request({ method: 'eth_requestAccounts' })
-    //     .then(accounts => {
-    //       setEthAddr(accounts[0]); // update state with our user's address
-    //     });
-
-    // } else {
-    //   console.log("Make sure you have MetaMask installed and active");
-    // }
   }, []);
 
   return (
