@@ -46,7 +46,7 @@ export default function Home() {
       const { ethereum } = window;
 
       if (!ethereum) {
-        alert("Get MetaMask!");
+        alert("Activate MetaMask!");
         return;
       }
 
