@@ -12,7 +12,6 @@
     "@mantine/core": "^3.6.13",
     "@mantine/hooks": "^3.6.13",
     "@mantine/modals": "^3.6.13",
-    "@mantine/next": "^3.6.13",
     "@mantine/notifications": "^3.6.13",
     "ethers": "^5.5.4",
     "next": "12.1.0",
