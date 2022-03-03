@@ -4,13 +4,8 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  
-  background: linear-gradient(201.99deg, #F6D4DF 8.02%, #ADBDD5 71.45%);
-  background-size: cover;
-  background-repeat: no-repeat;
-  
 }
-  
+
 a {
   color: inherit;
 }

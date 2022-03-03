@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styles from "../styles/debug-page.module.css";
 import Link from "next/link";
 
-import ProfilePreview from './components/ProfilePreview';
-
 // Calling it ARview for now, this is going to be the main page of our app.
 export default function ARview() {
 
@@ -55,8 +53,6 @@ export default function ARview() {
                     <a>back to home</a>
                 </Link>
             </h3>
-            <ProfilePreview />
-
         </div>
     );
 
