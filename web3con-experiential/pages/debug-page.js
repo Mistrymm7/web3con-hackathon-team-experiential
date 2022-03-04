@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styles from "../styles/debug-page.module.css";
 import Link from "next/link";
+import ProfilePreview from './components/ProfilePreview';
+import { Container, Button, Box } from '@mui/material';
+import MobileNav from './components/mobile/MobileNav';
 
 // Calling it ARview for now, this is going to be the main page of our app.
 export default function ARview() {
@@ -43,17 +46,19 @@ export default function ARview() {
 
 
     return (
-        <div className={styles.container}>
-            <h1>
-                Debug Page (for testing components)
-            </h1>
+        <Box sx={{ width: "100vw", height: "100vh" }}>
+            Debug Page (for testing components)
             <p>Current Account: {currentAccount}</p>
             <h3>
                 <Link href="/">
                     <a>back to home</a>
                 </Link>
             </h3>
-        </div>
+            <ProfilePreview />
+
+
+            <MobileNav />
+        </Box>
     );
 
 

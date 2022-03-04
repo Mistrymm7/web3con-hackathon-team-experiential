@@ -1,8 +1,8 @@
-
+import { Typography, Button, Container, Chip } from '@mui/material';
 import { ethers } from 'ethers';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link'
-import styles from '../styles/Home.module.css'
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
 export default function Home() {
 
@@ -46,7 +46,7 @@ export default function Home() {
       const { ethereum } = window;
 
       if (!ethereum) {
-        alert("Get MetaMask!");
+        alert("Activate MetaMask!");
         return;
       }
 
@@ -65,25 +65,13 @@ export default function Home() {
   }, []);
 
   return (
-    <div className={styles.container}>
-      <h1>
-        Root page / Home page
-      </h1>
-      <h3>
-        <Link href="/ar">
-          <a>Link to AR page</a>
-        </Link>
-      </h3>
-      { // if there is no authorized wallet, then show connect button
-        !currentAccount ? (
-          <button onClick={connectWallet}>
-            Connect Wallet
-          </button>
-        ) : (<p>Wallet connected!</p>)
+    <Container>
+
+      { // Show chip with address if user has connected their wallet
+        currentAccount && (<Chip icon={<AccountBalanceWalletIcon />} label={currentAccount.slice(0, 7) + "..."} variant="outlined" />)
       }
-      <p>
-        Current Account: {currentAccount}
-      </p>
-    </div>
+      {!currentAccount && (<Button variant="contained" onClick={connectWallet}>Connect Wallet</Button>)}
+
+    </Container>
   )
 }
