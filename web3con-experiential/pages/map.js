@@ -4,36 +4,34 @@ import React, { useRef, useEffect, useState } from 'react';
 // import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import ProfilePreview from './components/ProfilePreview';
 import { Box } from '@mui/material';
+import LinearProgress from '@mui/material/LinearProgress';
 import dynamic from 'next/dynamic';
 import { useControl } from 'react-map-gl';
+import MyMap from './components/Map';
 
-const MyMap = dynamic(() => import("./components/Map"), {
-    loading: () => "Loading...",
+const Map = dynamic(() => import("./components/Map"), {
+    loading: () => <LinearProgress />,
     ssr: false
 });
 
-
-
-
 export default function MapView() {
 
-    const [locations, setLocations] = useState([]);
-    useEffect(() => {
-        // const fetchLocations = async () => {
-        //     await fetch(url).then((response) =>
-        //         response.text()).then((res) => JSON.parse(res))
-        //         .then((json) => {
-        //             setLocations(json.features);
-        //         }).catch((err) => console.log({ err }));
-        // };
-        // fetchLocations();
-    }, []);
+    // useEffect(() => {
+    //     // const fetchLocations = async () => {
+    //     //     await fetch(url).then((response) =>
+    //     //         response.text()).then((res) => JSON.parse(res))
+    //     //         .then((json) => {
+    //     //             setLocations(json.features);
+    //     //         }).catch((err) => console.log({ err }));
+    //     // };
+    //     // fetchLocations();
+    // }, []);
 
     return (
         <Box sx={{ position: "relative", width: "100vw", height: "100vh" }}>
-            <MyMap locations={locations}>
+            <Map>
 
-            </MyMap>
+            </Map>
         </Box>
     );
 }

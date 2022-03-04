@@ -4,6 +4,7 @@ import Link from "next/link";
 import ProfilePreview from './components/ProfilePreview';
 import { Container, Button, Box } from '@mui/material';
 import MobileNav from './components/mobile/MobileNav';
+import PersonMarker from './components/PersonMarker';
 
 // Calling it ARview for now, this is going to be the main page of our app.
 export default function ARview() {
@@ -56,8 +57,8 @@ export default function ARview() {
             </h3>
             <ProfilePreview />
 
+            <PersonMarker onClick={() => console.log("Person marker clicked")} />
 
-            <MobileNav />
         </Box>
     );
 

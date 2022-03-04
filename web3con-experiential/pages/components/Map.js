@@ -1,8 +1,9 @@
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import { Box } from '@mui/material';
 import Map from "react-map-gl";
+import PersonMarker from "./PersonMarker";
 import {
     Marker,
     Popup,
@@ -11,6 +12,9 @@ import {
     ScaleControl,
     GeolocateControl
 } from 'react-map-gl';
+
+// test location data
+import * as testData from '../static/usa-cities.json';
 
 // .env file with mapbox API key not in use right now
 mapboxgl.accessToken = 'pk.eyJ1IjoibW1pc3RyeTIiLCJhIjoiY2trZnJzMjZhMDZncDJ3cGR3M3p0bXc1aSJ9.CdLRZiNADT91-W-HAhC5QQ';
@@ -28,8 +32,23 @@ export default function MyMap({ locations }) {
         // zoom: 10
     });
 
+    const pins = useMemo(
+        () =>
+            testData.map((city, index) => (
+                <Marker
+                    key={`marker-${index}`}
+                    longitude={city.longitude}
+                    latitude={city.latitude}
+                    anchor="bottom"
+                >
+                    <PersonMarker onClick={() => console.log("Marker clicked")} />
+                </Marker>
+            )),
+        []
+    );
+
     // useEffect(() => {
-    //     
+
     // }, [])
 
     return (
@@ -51,6 +70,8 @@ export default function MyMap({ locations }) {
                 <FullscreenControl position="top-left" />
                 <NavigationControl position="top-left" />
                 <ScaleControl />
+
+
             </Map>
 
         </>
