@@ -1,42 +1,43 @@
+// Map page / Map View
 
 import React, { useRef, useEffect, useState } from 'react';
-import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+// import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import ProfilePreview from './components/ProfilePreview';
-import { Container } from '@mui/material';
+import { Box } from '@mui/material';
+import dynamic from 'next/dynamic';
+import { useControl } from 'react-map-gl';
 
-mapboxgl.accessToken = 'pk.eyJ1IjoibW1pc3RyeTIiLCJhIjoiY2trZnJzMjZhMDZncDJ3cGR3M3p0bXc1aSJ9.CdLRZiNADT91-W-HAhC5QQ';
+const MyMap = dynamic(() => import("./components/Map"), {
+    loading: () => "Loading...",
+    ssr: false
+});
+
+
+
 
 export default function MapView() {
-    const [pageIsMounted, setPageIsMounted] = useState(false)
 
+    const [locations, setLocations] = useState([]);
     useEffect(() => {
-        setPageIsMounted(true)
-        const map = new mapboxgl.Map({
-            container: "my-map",
-            style: "mapbox://styles/mapbox/streets-v11",
-        });
-
-        map.addControl(
-            new mapboxgl.GeolocateControl({
-                positionOptions: {
-                    enableHighAccuracy: true,
-                },
-                trackUserLocation: true,
-                showUserHeading: true
-            })
-        );
-
-    }, [])
+        // const fetchLocations = async () => {
+        //     await fetch(url).then((response) =>
+        //         response.text()).then((res) => JSON.parse(res))
+        //         .then((json) => {
+        //             setLocations(json.features);
+        //         }).catch((err) => console.log({ err }));
+        // };
+        // fetchLocations();
+    }, []);
 
     return (
-        <div>
-            <ProfilePreview style={{ position: "absolute", zIndex: 1, top: "0", bottom: "0", left: "0", right: "0" }} />
-            <div id="my-map" style={{ position: "absolute", zIndex: 0, top: "0", bottom: "0", left: "0", right: "0" }} />
+        <Box sx={{ position: "relative", width: "100vw", height: "100vh" }}>
+            <MyMap locations={locations}>
 
-        </div>
+            </MyMap>
+        </Box>
     );
 }
-
+ //            <ProfilePreview sx={{ position: "absolute", zIndex: 1 }} />
 
 
 /* map.current.addControl(
