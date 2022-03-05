@@ -24,7 +24,7 @@ function chatReducer(state, action) {
   }
 }
 
-export default function Chat({ userInfo }: any) {
+export default function Chat({ userInfo }) {
   const [currentRoom, setCurrentRoom] = useState();
 
   const messageRef = createRef();

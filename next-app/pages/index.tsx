@@ -25,7 +25,7 @@ const Home: NextPage = () => {
           Link to AR page
         </Link>
         <WalletConnectButton />
-        <Chat />
+        <Chat userInfo={undefined} />
       </Box>
     </Container>
   );
