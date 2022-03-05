@@ -36,6 +36,7 @@ export default function MyMap({ locations }) {
         () =>
             testData.map((city, index) => (
                 <Marker
+                    style={{ width: "10px" }}
                     key={`marker-${index}`}
                     longitude={city.longitude}
                     latitude={city.latitude}
@@ -71,6 +72,7 @@ export default function MyMap({ locations }) {
                 <NavigationControl position="top-left" />
                 <ScaleControl />
 
+                {pins}
 
             </Map>
 

@@ -2,12 +2,10 @@ import React from "react";
 
 function PersonMarker({ onClick }) {
 
-    const size = 0.5;
-
     // will need to be wrapped in <Marker> component in the main Map component
     return (
-        <svg viewBox="0 0 24 24">
-            <ellipse cx="0" cy="0" rx={size} ry={size} onClick={onClick} style={{
+        <svg viewBox="0 0 64 64">
+            <circle cx="50%" cy="50%" r="50%" onClick={onClick} style={{
                 cursor: 'pointer',
                 fill: '#d00',
                 stroke: 'none',
