@@ -1,7 +1,7 @@
 
 import React, { useRef, useEffect, useState, useMemo } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import { Box } from '@mui/material';
+import { Box, Chip } from '@mui/material';
 import Map from "react-map-gl";
 import PersonMarker from "./PersonMarker";
 
@@ -18,7 +18,20 @@ import {
 } from 'react-map-gl';
 
 // test location data
-import * as testData from '../static/usa-cities.json';
+import * as testData from '../static/test-userdata.json';
+
+/* Test Data JSON formating
+{
+        "username": "NewYork123",
+        "walletAddress": "0x5cfe5352F9dB1F06b5E9A6796654A992D2d8b0e8",
+        "image": "http://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Above_Gotham.jpg/240px-Above_Gotham.jpg",
+        "latitude": 40.6643,
+        "longitude": -73.9385
+    }
+*/
+
+
+
 
 // .env file with mapbox API key not in use right now
 mapboxgl.accessToken = 'pk.eyJ1IjoibW1pc3RyeTIiLCJhIjoiY2trZnJzMjZhMDZncDJ3cGR3M3p0bXc1aSJ9.CdLRZiNADT91-W-HAhC5QQ';
@@ -27,6 +40,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibW1pc3RyeTIiLCJhIjoiY2trZnJzMjZhMDZncDJ3cGR3M
 export default function MyMap({ locations }) {
     //const [pageIsMounted, setPageIsMounted] = useState(false)
 
+    // controling what data is showing in the popup when you click a marker
     const [popupInfo, setPopupInfo] = useState(null);
 
 
@@ -39,17 +53,18 @@ export default function MyMap({ locations }) {
         // zoom: 10
     });
 
+    // creating our pin components to be populated on the map
     const pins = useMemo(
         () =>
-            testData.map((city, index) => (
+            testData.map((user, index) => (
                 <Marker
                     style={{ width: "15px" }}
                     key={`marker-${index}`}
-                    longitude={city.longitude}
-                    latitude={city.latitude}
+                    longitude={user.longitude}
+                    latitude={user.latitude}
                     anchor="bottom"
                 >
-                    <PersonMarker onClick={() => setPopupInfo(city)} />
+                    <PersonMarker onClick={() => setPopupInfo(user)} />
                 </Marker>
             )),
         []
@@ -89,16 +104,8 @@ export default function MyMap({ locations }) {
                         closeOnClick={false}
                         onClose={() => setPopupInfo(null)}
                     >
-                        <div>
-                            {popupInfo.city}, {popupInfo.state} |{' '}
-                            <a
-                                target="_new"
-                                href={`http://en.wikipedia.org/w/index.php?title=Special:Search&search=${popupInfo.city}, ${popupInfo.state}`}
-                            >
-                                Wikipedia
-                            </a>
-                        </div>
-                        <img width="100%" src={popupInfo.image} />
+                        <ProfilePreview image={popupInfo.image} username={popupInfo.username} walletAddress={popupInfo.walletAddress} />
+
                     </Popup>
                 )}
 

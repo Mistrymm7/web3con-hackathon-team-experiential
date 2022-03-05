@@ -1,3 +1,5 @@
+// WIP from Dylan's repo
+
 import type { AddEthereumChainParameter } from '@web3-react/types';
 
 const ETH: AddEthereumChainParameter['nativeCurrency'] = {

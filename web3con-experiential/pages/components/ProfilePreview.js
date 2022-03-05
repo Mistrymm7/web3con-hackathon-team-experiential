@@ -5,10 +5,15 @@ import { Box } from "@mui/system";
 import React from "react";
 import Image from "next/image";
 import placeholder from "../static/default-placeholder.png";
-function ProfilePreview({ walletAddress, username, image, onClickClose, onClickMessage }) {
+
+
+
+
+
+function ProfilePreview({ walletAddress, username, image, onClickMessage }) {
 
     return (
-        <Card sx={{ display: 'flex', maxWidth: '400px' }}>
+        <Box sx={{ display: 'flex', maxWidth: '400px' }}>
             <Box sx={{ margin: 1, display: "flex", alignItems: "center" }}>
                 <Image src={placeholder} height="100" width="100" />
             </Box>
@@ -27,12 +32,9 @@ function ProfilePreview({ walletAddress, username, image, onClickClose, onClickM
                 <IconButton size="medium" onClick={onClickMessage}>
                     <ChatOutlined fontSize="medium" color="primary" />
                 </IconButton>
-                <IconButton size="medium" onClick={onClickClose}>
-                    <CloseIcon fontSize="medium" />
-                </IconButton>
             </CardActions>
 
-        </Card>
+        </Box>
     );
 
 }
