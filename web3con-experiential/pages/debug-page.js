@@ -56,9 +56,6 @@ export default function ARview() {
                 </Link>
             </h3>
             <ProfilePreview />
-
-            <PersonMarker onClick={() => console.log("Person marker clicked")} />
-
         </Box>
     );
 

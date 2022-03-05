@@ -5,15 +5,7 @@ import { Box } from "@mui/system";
 import React from "react";
 import Image from "next/image";
 import placeholder from "../static/default-placeholder.png";
-function ProfilePreview(props) {
-
-    function messageButtonHandler() {
-
-    }
-
-    function closeButtonHandler() {
-
-    }
+function ProfilePreview({ walletAddress, username, image, onClickClose, onClickMessage }) {
 
     return (
         <Card sx={{ display: 'flex', maxWidth: '400px' }}>
@@ -23,19 +15,19 @@ function ProfilePreview(props) {
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <CardContent>
                     <Typography>
-                        Username Placeholder
+                        {username ? username.slice(0, 7) + "..." : "Username"}
                     </Typography>
                     <Typography>
-                        0x123as...
+                        {walletAddress ? walletAddress.slice(0, 7) + "..." : "0x123abc..."}
                     </Typography>
                 </CardContent>
             </Box>
 
             <CardActions>
-                <IconButton size="medium" onClick={messageButtonHandler}>
+                <IconButton size="medium" onClick={onClickMessage}>
                     <ChatOutlined fontSize="medium" color="primary" />
                 </IconButton>
-                <IconButton size="medium" onClick={closeButtonHandler}>
+                <IconButton size="medium" onClick={onClickClose}>
                     <CloseIcon fontSize="medium" />
                 </IconButton>
             </CardActions>

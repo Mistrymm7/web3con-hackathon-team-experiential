@@ -4,6 +4,10 @@ import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-load
 import { Box } from '@mui/material';
 import Map from "react-map-gl";
 import PersonMarker from "./PersonMarker";
+
+import ProfilePreview from './ProfilePreview';
+
+
 import {
     Marker,
     Popup,
@@ -23,6 +27,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibW1pc3RyeTIiLCJhIjoiY2trZnJzMjZhMDZncDJ3cGR3M
 export default function MyMap({ locations }) {
     //const [pageIsMounted, setPageIsMounted] = useState(false)
 
+    const [popupInfo, setPopupInfo] = useState(null);
+
+
     const [viewport, setViewport] = useState({
         width: "100%",
         height: "100%",
@@ -36,13 +43,13 @@ export default function MyMap({ locations }) {
         () =>
             testData.map((city, index) => (
                 <Marker
-                    style={{ width: "10px" }}
+                    style={{ width: "15px" }}
                     key={`marker-${index}`}
                     longitude={city.longitude}
                     latitude={city.latitude}
                     anchor="bottom"
                 >
-                    <PersonMarker onClick={() => console.log("Marker clicked")} />
+                    <PersonMarker onClick={() => setPopupInfo(city)} />
                 </Marker>
             )),
         []
@@ -73,6 +80,27 @@ export default function MyMap({ locations }) {
                 <ScaleControl />
 
                 {pins}
+
+                {popupInfo && (
+                    <Popup
+                        anchor="top"
+                        longitude={Number(popupInfo.longitude)}
+                        latitude={Number(popupInfo.latitude)}
+                        closeOnClick={false}
+                        onClose={() => setPopupInfo(null)}
+                    >
+                        <div>
+                            {popupInfo.city}, {popupInfo.state} |{' '}
+                            <a
+                                target="_new"
+                                href={`http://en.wikipedia.org/w/index.php?title=Special:Search&search=${popupInfo.city}, ${popupInfo.state}`}
+                            >
+                                Wikipedia
+                            </a>
+                        </div>
+                        <img width="100%" src={popupInfo.image} />
+                    </Popup>
+                )}
 
             </Map>
 
