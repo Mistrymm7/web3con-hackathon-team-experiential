@@ -1,5 +1,7 @@
+import { Button, IconButton, TextField, Typography } from '@mui/material';
 import React, { useState, createRef, useEffect, useReducer } from 'react';
 import Gun from 'gun';
+import { ChatBubbleOutline } from '@mui/icons-material';
 
 const gun = Gun();
 
@@ -22,7 +24,7 @@ function chatReducer(state, action) {
   }
 }
 
-export default function Chat({ userInfo }) {
+export default function Chat({ userInfo }: any) {
   const [currentRoom, setCurrentRoom] = useState();
 
   const messageRef = createRef();
@@ -66,8 +68,8 @@ export default function Chat({ userInfo }) {
   };
 
   return (
-    <div id="chat">
-      <h3>Chat</h3>
+    <>
+      <Typography variant="h5">Messages</Typography>
       <select onChange={changeRoom}>
         <option>None</option>
         <option>Room 1</option>
@@ -81,8 +83,16 @@ export default function Chat({ userInfo }) {
           </p>
         ))}
       </div>
-      <textarea ref={messageRef}></textarea>
-      <button onClick={sendMessage}>Send Chat</button>
-    </div>
+      <TextField
+        id="outlined-textarea"
+        label="Send message"
+        placeholder="Start typing a message"
+        multiline
+        inputRef={messageRef}
+      />
+      <IconButton color="secondary" onClick={sendMessage}>
+        <ChatBubbleOutline />
+      </IconButton>
+    </>
   );
 }

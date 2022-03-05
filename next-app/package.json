@@ -1,0 +1,38 @@
+{
+  "name": "nextjs-with-typescript",
+  "version": "5.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
+  },
+  "dependencies": {
+    "@emotion/cache": "latest",
+    "@emotion/react": "latest",
+    "@emotion/server": "latest",
+    "@emotion/styled": "latest",
+    "@ethersproject/units": "^5.5.0",
+    "@mui/icons-material": "latest",
+    "@mui/material": "latest",
+    "@web3-react/core": "^8.0.18-beta.0",
+    "@web3-react/metamask": "^8.0.14-beta.0",
+    "@web3-react/network": "^8.0.14-beta.0",
+    "@web3-react/walletconnect": "^8.0.19-beta.0",
+    "@web3-react/walletlink": "^8.0.20-beta.0",
+    "gun": "^0.2020.1235",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@web3-react/types": "^8.0.10-beta.0",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "typescript": "latest"
+  }
+}
