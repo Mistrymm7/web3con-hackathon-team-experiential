@@ -9,8 +9,8 @@ import placeholder from "../static/default-placeholder.png";
 
 
 
-
-function ProfilePreview({ walletAddress, username, image, onClickMessage }) {
+// pass onClick function from parent to control the function of the message button
+function ProfilePreview({ walletAddress, username, image, onClick }) {
 
     return (
         <Box sx={{ display: 'flex', maxWidth: '400px' }}>
@@ -20,7 +20,7 @@ function ProfilePreview({ walletAddress, username, image, onClickMessage }) {
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <CardContent>
                     <Typography>
-                        {username ? username.slice(0, 7) + "..." : "Username"}
+                        {username}
                     </Typography>
                     <Typography>
                         {walletAddress ? walletAddress.slice(0, 7) + "..." : "0x123abc..."}
@@ -29,7 +29,7 @@ function ProfilePreview({ walletAddress, username, image, onClickMessage }) {
             </Box>
 
             <CardActions>
-                <IconButton size="medium" onClick={onClickMessage}>
+                <IconButton size="medium" onClick={onClick}>
                     <ChatOutlined fontSize="medium" color="primary" />
                 </IconButton>
             </CardActions>

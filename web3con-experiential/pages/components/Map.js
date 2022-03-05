@@ -98,6 +98,7 @@ export default function MyMap({ locations }) {
 
                 {popupInfo && (
                     <Popup
+                        style={{ minWidth: "300px" }}
                         anchor="top"
                         longitude={Number(popupInfo.longitude)}
                         latitude={Number(popupInfo.latitude)}
