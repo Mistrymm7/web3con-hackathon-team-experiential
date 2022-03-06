@@ -1,98 +1,104 @@
-import { Button, IconButton, TextField, Typography } from '@mui/material';
+import { Button, Box, IconButton, TextField, Typography } from '@mui/material';
 import React, { useState, createRef, useEffect, useReducer } from 'react';
 import Gun from 'gun';
-import { ChatBubbleOutline } from '@mui/icons-material';
+import MessageInput from './MessageInput';
+import SenderMessage from './SenderMessage';
+import RecipientMessage from './RecipientMessage';
+import { useEthereum } from '@decentology/hyperverse-ethereum';
 
-const gun = Gun();
+const gun = Gun(process.env.NEXT_PUBLIC_GUN_URL);
 
 const initialChatState = {
   messages: [],
 };
 
+const GUN_DB_ID = process.env.NEXT_PUBLIC_GUN_DB;
+
 function chatReducer(state, action) {
   switch (action.type) {
     case 'SEND_MESSAGE':
+      if (!action.payload.sender || !action.payload.recipient) {
+        return state;
+      }
       return {
-        messages: [...state.messages, action.payload],
-      };
-    case 'CHANGE_ROOM':
-      return {
-        messages: [],
+        messages: [action.payload, ...state.messages],
       };
     default:
       throw new Error(`Invalid action type: ${action.type}`);
   }
 }
 
-export default function Chat({ userInfo }) {
-  const [currentRoom, setCurrentRoom] = useState();
-
+export default function Chat({ targetAddress }) {
   const messageRef = createRef();
   const [state, dispatch] = useReducer(chatReducer, initialChatState);
+  const { address } = useEthereum();
+  const addresses = [address, targetAddress];
 
   useEffect(() => {
-    if (!currentRoom) {
-      return;
-    }
     gun
-      .get(currentRoom)
+      .get(GUN_DB_ID)
       .map()
       .on((msg) => {
-        dispatch({
-          type: 'SEND_MESSAGE',
-          payload: {
-            name: msg.name,
-            message: msg.message,
-            created: msg.created,
-          },
-        });
+        if (
+          addresses.includes(msg.sender) &&
+          addresses.includes(msg.recipient)
+        ) {
+          dispatch({
+            type: 'SEND_MESSAGE',
+            payload: {
+              sender: msg.sender,
+              recipient: msg.recipient,
+              message: msg.message,
+              created: msg.created,
+            },
+          });
+        }
       });
-  }, [currentRoom]);
+  }, [address]);
 
   const sendMessage = () => {
-    if (!currentRoom) {
-      alert('No room selected');
+    if (!messageRef.current.value || !address) {
+      return;
     }
-    gun.get(currentRoom).set({
-      name: userInfo.name ?? 'not logged in',
+
+    gun.get(GUN_DB_ID).set({
+      sender: address,
+      recipient: targetAddress,
       message: messageRef.current.value,
       created: Date.now(),
     });
     messageRef.current.value = '';
   };
 
-  const changeRoom = (e) => {
-    setCurrentRoom(e.target.value);
-    console.log(e.target.value);
-    dispatch({ type: 'CHANGE_ROOM' });
-  };
-
   return (
     <>
       <Typography variant="h5">Messages</Typography>
-      <select onChange={changeRoom}>
-        <option>None</option>
-        <option>Room 1</option>
-        <option>Room 2</option>
-        <option>Room 3</option>
-      </select>
-      <div id="messages">
-        {state.messages.map((msg) => (
-          <p>
-            {msg.name} - {msg.message} - {msg.created}
-          </p>
-        ))}
-      </div>
-      <TextField
-        id="outlined-textarea"
-        label="Send message"
-        placeholder="Start typing a message"
-        multiline
-        inputRef={messageRef}
-      />
-      <IconButton color="secondary" onClick={sendMessage}>
-        <ChatBubbleOutline />
-      </IconButton>
+      <Box
+        id="messages"
+        sx={{
+          height: '70vh',
+          width: '100%',
+          overflow: 'auto',
+          marginBottom: 2,
+          marginTop: 2,
+        }}
+      >
+        {state.messages.map((msg) => {
+          if (msg.sender == address) {
+            return (
+              <SenderMessage message={msg.message} created={msg.created} />
+            );
+          }
+          return (
+            <RecipientMessage
+              message={msg.message}
+              name={msg.sender}
+              created={msg.created}
+            />
+          );
+        })}
+      </Box>
+      <MessageInput inputRef={messageRef} sendMessage={sendMessage} />
     </>
   );
 }
