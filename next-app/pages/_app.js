@@ -9,7 +9,7 @@ import { CacheProvider } from '@emotion/react';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import MobileLayout from './components/mobile/MobileLayout';
 import 'mapbox-gl/dist/mapbox-gl.css'; // from Mapbox docs
-import createEmotionCache from '../utility/createEmotionCache';
+import createEmotionCache from '../src/utils/createEmotionCache';
 import lightTheme from '../styles/theme/lightTheme';
 import '../styles/globals.css';
 import { ToastContainer } from 'react-toastify';
