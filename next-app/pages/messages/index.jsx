@@ -1,18 +1,20 @@
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useRouter } from 'next/router';
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { toast } from 'react-toastify';
 import Gun from 'gun';
 import {
   Box,
   Container,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  TextField,
 } from '@mui/material';
-import { AccountCircle } from '@mui/icons-material';
+import { AccountCircle, Message } from '@mui/icons-material';
 import Link from 'next/link';
 
 const gun = Gun(process.env.NEXT_PUBLIC_GUN_URL);
@@ -45,6 +47,7 @@ const Messages = () => {
   const { address } = useEthereum();
   const router = useRouter();
   const [state, dispatch] = useReducer(messagesReducer, initialChatState);
+  const [text, setText] = useState('');
 
   useEffect(() => {
     if (!address) {
@@ -68,6 +71,14 @@ const Messages = () => {
         }
       });
   }, []);
+
+  const onChange = (e) => {
+    setText(e.target.value);
+  };
+
+  const newMessage = () => {
+    router.push(`/messages/${text}`);
+  };
 
   return (
     <Container maxWidth="lg">
@@ -95,6 +106,26 @@ const Messages = () => {
             </ListItem>
           ))}
         </List>
+      </Box>
+      <Box sx={{ display: 'flex', width: '100%' }}>
+        <TextField
+          id="outlined-textarea"
+          label="Ethereum Address"
+          placeholder="Paste an ethereum address"
+          multiline
+          onChange={onChange}
+          sx={{
+            flexGrow: 1,
+          }}
+        />
+        <IconButton
+          onClick={newMessage}
+          size="large"
+          color="primary"
+          disabled={text === ''}
+        >
+          <Message />
+        </IconButton>
       </Box>
     </Container>
   );
