@@ -9,4 +9,7 @@ module.exports = withPWA({
     register: true,
     skipWaiting: true,
   },
+  env: {
+    INFURA_API_KEY: '5c004c9a076341fca194b4eea03ee74e',
+  },
 });
