@@ -1,8 +1,7 @@
 import { Typography, Button, Card, CardActions, CardContent, IconButton, Avatar } from "@mui/material";
 import ChatOutlined from "@mui/icons-material/ChatOutlined"
-import CloseIcon from '@mui/icons-material/Close';
-import { Box } from "@mui/system";
-import React from "react";
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'; import { Box } from "@mui/system";
+import React, { useState } from "react";
 import Image from "next/image";
 import placeholder from "../static/default-placeholder.png";
 
@@ -12,10 +11,17 @@ import placeholder from "../static/default-placeholder.png";
 // pass onClick function from parent to control the function of the message button
 function ProfilePreview({ walletAddress, username, image, onClick }) {
 
+    const [copied, setCopied] = useState(false);
+
+    function handleCopy() {
+        navigator.clipboard.writeText(walletAddress);
+        setCopied(true);
+    }
+
     return (
         <Box sx={{ display: 'flex', maxWidth: '400px' }}>
             <Box sx={{ margin: 1, display: "flex", alignItems: "center" }}>
-                <Avatar src={!image ? placeholder : image} sx={{ width: '100%', height: '100%' }} />
+                <Avatar src={!image ? placeholder : image} sx={{ width: 64, height: 64 }} />
                 {/* {<Image src={!image ? placeholder : image} height="100" width="100" />} */}
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -29,10 +35,15 @@ function ProfilePreview({ walletAddress, username, image, onClick }) {
                 </CardContent>
             </Box>
 
-            <CardActions>
-                <IconButton size="medium" onClick={onClick}>
+            <CardActions sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                {/* {<IconButton size="medium" onClick={onClick}>
                     <ChatOutlined fontSize="medium" color="primary" />
-                </IconButton>
+                </IconButton>} */}
+                {copied ? "Copied Address!" :
+                    <IconButton size="medium" onClick={handleCopy}>
+                        <ContentCopyIcon fontSize="medium" color="grey" />
+                    </IconButton>
+                }
             </CardActions>
 
         </Box>
