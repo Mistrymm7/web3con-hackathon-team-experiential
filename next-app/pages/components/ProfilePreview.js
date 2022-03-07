@@ -1,4 +1,4 @@
-import { Typography, Button, Card, CardMedia, CardContent, CardActionArea, CardActions, IconButton, Icon } from "@mui/material";
+import { Typography, Button, Card, CardActions, CardContent, IconButton, Avatar } from "@mui/material";
 import ChatOutlined from "@mui/icons-material/ChatOutlined"
 import CloseIcon from '@mui/icons-material/Close';
 import { Box } from "@mui/system";
@@ -15,7 +15,8 @@ function ProfilePreview({ walletAddress, username, image, onClick }) {
     return (
         <Box sx={{ display: 'flex', maxWidth: '400px' }}>
             <Box sx={{ margin: 1, display: "flex", alignItems: "center" }}>
-                <Image src={placeholder} height="100" width="100" />
+                <Avatar src={!image ? placeholder : image} sx={{ width: '100%', height: '100%' }} />
+                {/* {<Image src={!image ? placeholder : image} height="100" width="100" />} */}
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <CardContent>

@@ -12,4 +12,7 @@ module.exports = withPWA({
   env: {
     INFURA_API_KEY: '5c004c9a076341fca194b4eea03ee74e',
   },
+  images: {
+    domains: ['lh3.googleusercontent.com'],
+  }
 });
