@@ -34,7 +34,8 @@ import * as testData from '../static/test-userdata.json';
 
 
 // .env file with mapbox API key not in use right now
-mapboxgl.accessToken = 'pk.eyJ1IjoibW1pc3RyeTIiLCJhIjoiY2trZnJzMjZhMDZncDJ3cGR3M3p0bXc1aSJ9.CdLRZiNADT91-W-HAhC5QQ';
+// 'pk.eyJ1IjoibW1pc3RyeTIiLCJhIjoiY2trZnJzMjZhMDZncDJ3cGR3M3p0bXc1aSJ9.CdLRZiNADT91-W-HAhC5QQ'
+mapboxgl.accessToken = 'pk.eyJ1IjoiYmFiaXZpbGwiLCJhIjoiY2wwZzI2aWNqMHl3ZDNjcXRtc3ZvdDIyNyJ9.q37gvj7lhIJVkXRXP3nqeA';
 
 
 export default function MyMap({ locations }) {
@@ -84,7 +85,7 @@ export default function MyMap({ locations }) {
                     bearing: 0,
                     pitch: 0
                 }}
-                mapStyle="mapbox://styles/mapbox/streets-v11"
+                mapStyle="mapbox://styles/babivill/cl093dew9005o15quyoph3rnu"
                 mapboxApiAccessToken={process.env.MAPBOX_KEY}
                 {...viewport}
                 onViewportChange={(nextViewport) => setViewport(nextViewport)}
