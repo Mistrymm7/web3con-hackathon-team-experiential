@@ -15,7 +15,7 @@ const Map = dynamic(() => import("./components/Map"), {
 export default function MapView() {
 
     return (
-        <Box sx={{ position: "relative", width: "100vw", height: "100vh" }}>
+        <Box sx={{ position: "relative", height: "100%" }}>
             <Map>
 
             </Map>

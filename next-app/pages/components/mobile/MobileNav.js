@@ -13,13 +13,13 @@ export default function MobileNav() {
   useEffect(() => {
     // check which page is active so that it's highlighted on the nav
     switch (router.pathname) {
-      case '/ar':
+      case '/':
         setNavIndex(0);
         break;
-      case '/map':
+      case '/ar':
         setNavIndex(1);
         break;
-      case '/':
+      case '/map':
         setNavIndex(2);
         break;
       case '/messages':
@@ -30,10 +30,17 @@ export default function MobileNav() {
 
   return (
     <BottomNavigation
-      sx={{ bottom: 0, position: 'fixed', width: '100%' }}
+      sx={{ bottom: 0, position: 'fixed', width: '100%', height: '60px' }}
       showLabels
       value={navIndex}
     >
+      <BottomNavigationAction
+        label="Home"
+        icon={<Home />}
+        onClick={() => {
+          router.push('/');
+        }}
+      />
       <BottomNavigationAction
         label="AR View"
         icon={<ViewInArIcon />}
@@ -46,13 +53,6 @@ export default function MobileNav() {
         icon={<LocationOnIcon />}
         onClick={() => {
           router.push('/map');
-        }}
-      />
-      <BottomNavigationAction
-        label="Home"
-        icon={<Home />}
-        onClick={() => {
-          router.push('/');
         }}
       />
       <BottomNavigationAction
