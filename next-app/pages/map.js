@@ -15,7 +15,7 @@ const Map = dynamic(() => import("./components/Map"), {
 export default function MapView() {
 
     return (
-        <Box sx={{ position: "relative", height: "100%" }}>
+        <Box sx={{ position: "relative", height: "100%", background: 'linear-gradient(201.99deg, #FFEDF8 8.02%, #D7E7FF 90.87%)' }}>
             <Map>
 
             </Map>
